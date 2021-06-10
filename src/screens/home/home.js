@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import Header from '../../common/header/Header'
-import './Home.css'
+import ReactDOM from 'react-dom';
+import Header from '../../common/header/Header';
+import './Home.css';
 
 import { withStyles } from '@material-ui/core/styles';
 
@@ -24,6 +25,7 @@ import TextField from '@material-ui/core/TextField';
 import Button from '@material-ui/core/Button';
 import artists from "../../common/artists";
 import genres from '../../common/genre';
+import Details from '../details/Details'
 
 
 const styles = theme => ({
@@ -95,7 +97,7 @@ class Home extends Component {
     }
 
     movieClickHandler = (movieId) => {
-      this.props.history.push('/movie/' + movieId);
+        ReactDOM.render(<Details movieId={movieId} />, document.getElementById('root'));
     }
 
     render() {
@@ -136,7 +138,7 @@ class Home extends Component {
                     <div className="left">
                         <GridList cellHeight={350} cols={4} className={classes.gridListMain}>
                             {filterMovie.map((movie) => (
-                                <GridListTile className="released-movie-grid-item"
+                                <GridListTile onClick={() => this.movieClickHandler(movie.id)} className="released-movie-grid-item"
                                     key={"grid" + movie.id}>
                                     <img
                                         src={movie.poster_url}
